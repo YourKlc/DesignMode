@@ -73,7 +73,7 @@ vec4 frag(v2f _iParam) : COLOR0
         d = sin(d * 8. + iTime) / 8.;
         d = abs(d);
 
-        d = pow(0.01 / d, 1.2);
+        d = pow(0.008 / d, 1.4);
 
         finalColor += col * d;
     }
@@ -88,7 +88,7 @@ CGPROGRAM
   
             #pragma vertex vert    
             #pragma fragment frag    
-            #pragma fragmentoption ARB_precision_hint_fastest     
+            //#pragma fragmentoption ARB_precision_hint_fastest     
   
             ENDCG
         }    
