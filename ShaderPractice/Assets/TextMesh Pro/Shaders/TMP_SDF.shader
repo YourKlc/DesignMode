@@ -1,6 +1,10 @@
 Shader "TextMeshPro/Distance Field" {
 
 Properties {
+	_Center				("Center",vector) = (0,0,0,0) 
+	_ThreH				("ThreH",Range(0,1)) = 0
+	
+	_Thre				("Thre",float) = 0
 	_FaceTex			("Face Texture", 2D) = "white" {}
 	_FaceUVSpeedX		("Face UV Speed X", Range(-5, 5)) = 0.0
 	_FaceUVSpeedY		("Face UV Speed Y", Range(-5, 5)) = 0.0
@@ -152,12 +156,17 @@ SubShader {
 			fixed4	underlayColor	: COLOR1;
 		#endif
 			float4 textures			: TEXCOORD5;
+			float4 wordpos			: TEXCOORD6;
 		};
 
 		// Used by Unity internally to handle Texture Tiling and Offset.
 		float4 _FaceTex_ST;
 		float4 _OutlineTex_ST;
 
+		float4 _Center;
+		float _ThreH;
+		float _ThreL;
+		float _Thre;
 		pixel_t VertShader(vertex_t input)
 		{
 			pixel_t output;
@@ -228,7 +237,7 @@ SubShader {
 			output.underlayColor =	underlayColor;
 			#endif
 			output.textures = float4(faceUV, outlineUV);
-
+			output.wordpos = mul(unity_ObjectToWorld, input.position);
 			return output;
 		}
 
@@ -304,8 +313,15 @@ SubShader {
 		#if UNITY_UI_ALPHACLIP
 			clip(faceColor.a - 0.001);
 		#endif
-
-  		return faceColor * input.color.a;
+		float distance = length(input.wordpos - _Center.xyz);
+		float _last = clamp( _Thre - distance,0,1); 
+		float alpha = lerp(0, 1, _last);
+			//if(distance / height) return float4(1.,1.,1.,1.);
+			
+			float4 finalcolor = faceColor;
+			finalcolor.a *= alpha *input.color.a;
+			finalcolor *=  finalcolor.a;
+  		return saturate( finalcolor);// * input.color.a;
 		}
 
 		ENDCG
@@ -313,5 +329,5 @@ SubShader {
 }
 
 Fallback "TextMeshPro/Mobile/Distance Field"
-CustomEditor "TMPro.EditorUtilities.TMP_SDFShaderGUI"
+//CustomEditor "TMPro.EditorUtilities.TMP_SDFShaderGUI"
 }

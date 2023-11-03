@@ -1,8 +1,10 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+//[ExecuteInEditMode]
 public class textBehaviourScript : MonoBehaviour
 {
     public TMP_Text tmp;
@@ -10,6 +12,11 @@ public class textBehaviourScript : MonoBehaviour
     public float xScale;
     [Range(0.1f, 2f)]
     public float movingSpeed;
+    float maxThre;
+    [Range(0,1f)]
+    public float prcnt = 0.5f;
+
+    float maxDis = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,5 +47,19 @@ public class textBehaviourScript : MonoBehaviour
             meshInfo.mesh.vertices = meshInfo.vertices;
             tmp.UpdateGeometry(meshInfo.mesh, i);
         }
+        //maxThre 
+        Vector3[] arrPoint = new Vector3[4];
+        Vector3 pos = transform.position;
+        maxDis = 0;
+        for (int i=0;i<4;i++)
+        {
+            maxDis = Mathf.Max(maxDis, Vector3.Distance(textInfo.meshInfo[0].vertices[i], pos));
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            maxDis = Mathf.Max(maxDis, Vector3.Distance(textInfo.meshInfo[0].vertices[textInfo.meshInfo[0].vertexCount - i - 1], pos));
+        }
+        Material mt = GetComponent<TMP_Text>().fontMaterial;
+        mt.SetFloat("_Thre", maxDis * prcnt);
     }
 }
