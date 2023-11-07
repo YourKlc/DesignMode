@@ -314,7 +314,7 @@ SubShader {
 			clip(faceColor.a - 0.001);
 		#endif
 		float distance = length(input.wordpos - _Center.xyz);
-		float _last = clamp( _Thre - distance,0,1); 
+		float _last = saturate(_Thre - distance + 0.6f);// clamp( _Thre - distance,0,1); 
 		float alpha = lerp(0, 1, _last);
 			//if(distance / height) return float4(1.,1.,1.,1.);
 			
