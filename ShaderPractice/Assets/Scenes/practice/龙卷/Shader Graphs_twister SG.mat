@@ -50,13 +50,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _: 0.205
+    - _: 0.141
     - _8: 0.14
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _power: 1.1
     - _speed: 1
+    - _speed_radial: 0.5
+    - _speed_twirl: 0.1
+    - _twirlStrength: 30
     m_Colors:
-    - _base_color: {r: 14.259474, g: 14.259474, b: 14.259474, a: 1}
+    - _base_color: {r: 13.667404, g: 11.091349, b: 0, a: 1}
+    - _center: {r: 0.5, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1933196013491945507
 MonoBehaviour:
