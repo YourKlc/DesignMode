@@ -73,12 +73,12 @@ Material:
     - _speed_twirl: 0.1
     - _twirlStrength: 4
     m_Colors:
-    - __1: {r: -0.2, g: 0, b: 0, a: 0}
+    - __1: {r: -0.5, g: 0, b: 0, a: 0}
     - _base_color: {r: 1.2075472, g: 1.2075472, b: 1.2075472, a: 1}
     - _center: {r: 0, g: 0, b: 0, a: 0}
     - _color_begin: {r: 2.333226, g: 16.966557, b: 0, a: 0}
     - _color_end: {r: 0, g: 5.753035, b: 38.075035, a: 0}
-    - _speed_tex: {r: -0.2, g: 0, b: 0, a: 0}
+    - _speed_tex: {r: -0.5, g: 0, b: 0, a: 0}
     - _speed_twirl: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1933196013491945507
